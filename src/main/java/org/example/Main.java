@@ -14,22 +14,31 @@ public class Main {
 
             Connection con = DriverManager.getConnection(URL,USER,PASSWORD);
 
-            PreparedStatement pr=con.prepareStatement("insert into student_data values (?,?,?)");
-            System.out.println("Enter id  : \n name :\n Domain :");
-            Scanner sc = new Scanner(System.in);
-
-
-            pr.setInt(1,sc.nextInt());
-            sc.nextLine();
-            pr.setString(2,sc.nextLine());
-            pr.setString(3,sc.nextLine());
+//            PreparedStatement pr=con.prepareStatement("insert into student_data values (?,?,?)");
+//
+//            System.out.println("Enter id  : ");
+//            Scanner sc = new Scanner(System.in);
+//            pr.setInt(1,sc.nextInt());
+//            System.out.println("Enter Name  : ");
+//            sc = new Scanner(System.in);
+//            pr.setString(2,sc.nextLine());
+//            System.out.println("Enter Domain  : ");
+//            sc = new Scanner(System.in);
+//            pr.setString(3,sc.nextLine());
 
             //4th Step(Execute Query)
-            int rowsaffect = pr.executeUpdate();
-            System.out.println(rowsaffect);
-            if(rowsaffect>0){
-                System.out.println("Data inserted");
-            }
+//            int rowsaffect = pr.executeUpdate();
+//            System.out.println(rowsaffect);
+//            if(rowsaffect>0){
+//                System.out.println("Data inserted");
+//            }
+
+                Statement st= con.createStatement();
+                ResultSet rs = st.executeQuery("select*from student_data");
+
+                while(rs.next()){
+                    System.out.println(rs.getInt("st_id") + " " + rs.getString("st_name") +" "+ rs.getString("st_domain"));
+                }
             con.close();
 
 
