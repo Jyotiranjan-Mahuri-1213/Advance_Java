@@ -16,7 +16,7 @@ public class Main {
         do {
 
             System.out.println("\n================================");
-            System.out.println(" RAILWAY TICKET BOOKING SYSTEM");
+            System.out.println(" Enter Your Choice");
             System.out.println("================================");
 
             System.out.println("1. Add Train");
@@ -66,18 +66,36 @@ public class Main {
                     break;
 
                 case 2:
-
-                    System.out.println(
-                            "View All Trains"
-                    );
-
+                    trainDAO.viewTrains();
                     break;
-
                 case 3:
 
-                    System.out.println(
-                            "Update Train"
-                    );
+                    Train updateTrain = new Train();
+
+                    System.out.print("Enter train ID to update: ");
+                    updateTrain.trainId = sc.nextInt();
+
+                    System.out.print("Enter new train number: ");
+                    updateTrain.trainNumber = sc.next();
+                    sc.nextLine();
+                    System.out.print("Enter new train name: ");
+                    updateTrain.trainName = sc.nextLine();
+                    System.out.print("Enter new source: ");
+                    updateTrain.source = sc.nextLine();
+                    System.out.print("Enter new destination: ");
+                    updateTrain.destination = sc.nextLine();
+                    System.out.print("Enter new total seats: ");
+
+                    updateTrain.totalSeats = sc.nextInt();
+
+                    System.out.print("Enter new available seats: ");
+
+                    updateTrain.availableSeats = sc.nextInt();
+
+                    System.out.print("Enter new ticket price: ");
+
+                    updateTrain.ticketPrice = sc.nextDouble();
+                    trainDAO.updateTrain(updateTrain);
 
                     break;
 
