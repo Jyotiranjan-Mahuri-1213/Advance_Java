@@ -97,8 +97,8 @@ public class TrainDAO {
 
     public void updateTrain(Train train) {
         String sql = """ 
-update trains set train_number = ?, train_name = ?, source = ?, destination = ?,
- total_seats = ?,available_seats = ?,ticket_price = ? where train_id = ? """;
+            update trains set train_number = ?, train_name = ?, source = ?, destination = ?,
+             total_seats = ?,available_seats = ?,ticket_price = ? where train_id = ? """;
 
         try {
 
@@ -125,11 +125,112 @@ update trains set train_number = ?, train_name = ?, source = ?, destination = ?,
             con.close();
 
         } catch (SQLException e) {
-
             System.out.println("Error while updating train.");
 
             e.printStackTrace();
         }
+
+    }
+
+    public void deleteTrain(int trainId) {
+
+        String sql = "delete from trains where train_id = ?";
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setInt(1, trainId);
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                System.out.println("Train deleted successfully.");
+
+            } else
+            {
+                System.out.println(" not found.");
+            }
+
+            ps.close();
+            con.close();
+
+        } catch (SQLException e) {
+
+            System.out.println("Error in deletion.");
+
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+    public void searchTrain(
+            String source,
+            String destination
+    ) {
+
+        String sql = """
+        select * from trains where source = ?
+        and destination = ? """;
+
+        try {
+
+            Connection con = DBConnection.getConnection();
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setString(1, source);
+            ps.setString(2, destination);
+            ResultSet rs = ps.executeQuery();
+
+            boolean found = false;
+
+            System.out.println("\n===== Available trains =====");
+
+            while (rs.next()) {
+
+                found = true;
+
+                System.out.println("\nTrain id: " + rs.getInt("train_id"));
+
+                System.out.println(
+                        "Train number: " + rs.getString("train_number"));
+
+                System.out.println("Train Name: " + rs.getString("train_name"));
+
+                System.out.println("Source: " + rs.getString("source"));
+
+                System.out.println("Destination: " + rs.getString("destination"));
+
+                System.out.println("Available Seats: " + rs.getInt("available_seats"));
+                System.out.println("Ticket Price: " + rs.getDouble("ticket_price"));
+
+                System.out.println("--------------------------");
+            }
+
+            if (!found) {
+
+                System.out.println(
+                        "No matching train found."
+                );
+            }
+
+            rs.close();
+
+            ps.close();
+
+            con.close();
+
+        } catch (SQLException e) {
+
+            System.out.println(
+                    "Error while searching train."
+            );
+
+            e.printStackTrace();
+        }
+
 
     }
 

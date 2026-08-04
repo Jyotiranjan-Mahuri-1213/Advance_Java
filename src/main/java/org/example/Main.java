@@ -85,35 +85,40 @@ public class Main {
                     System.out.print("Enter new destination: ");
                     updateTrain.destination = sc.nextLine();
                     System.out.print("Enter new total seats: ");
-
                     updateTrain.totalSeats = sc.nextInt();
 
                     System.out.print("Enter new available seats: ");
-
                     updateTrain.availableSeats = sc.nextInt();
 
                     System.out.print("Enter new ticket price: ");
-
                     updateTrain.ticketPrice = sc.nextDouble();
+
                     trainDAO.updateTrain(updateTrain);
 
                     break;
 
                 case 4:
 
-                    System.out.println(
-                            "Delete Train"
-                    );
-
+                    System.out.print("Enter train ID to delete: ");
+                    int trainId = sc.nextInt();
+                    trainDAO.deleteTrain(trainId);
                     break;
+
 
                 case 5:
 
-                    System.out.println(
-                            "Search Train"
-                    );
+                    sc.nextLine();
 
+                    System.out.print("Enter source: ");
+
+                    String source = sc.nextLine();
+
+                    System.out.print("Enter destination: ");
+
+                    String destination = sc.nextLine();
+                    trainDAO.searchTrain(source, destination);
                     break;
+
 
                 case 6:
 
