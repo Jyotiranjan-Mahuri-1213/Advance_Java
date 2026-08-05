@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -8,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
 
         TrainDAO trainDAO = new TrainDAO();
-
+        BookingDAO bookingDAO = new BookingDAO();
         Scanner sc = new Scanner(System.in);
 
         int choice;
@@ -119,14 +121,37 @@ public class Main {
                     trainDAO.searchTrain(source, destination);
                     break;
 
-
                 case 6:
+                    System.out.println("\n===== book your ticket =====");
+                    System.out.print("Enter train ID: ");
+                    trainId = sc.nextInt();
+                    System.out.print("Enter number of passengers: ");
+                    int passengerCount = sc.nextInt();
+                    sc.nextLine();
+                    List<Passenger> passengers = new ArrayList<>();
+                    for (int i = 1; i <= passengerCount; i++) {
+                        System.out.println("\nEnter details of Passenger " + i);
+                        Passenger passenger = new Passenger();
 
-                    System.out.println(
-                            "Book Ticket"
-                    );
+                        System.out.print("Enter passenger name: ");
+                        passenger.passengerName = sc.nextLine();
+                        System.out.print("Enter age: ");
+                        passenger.age = sc.nextInt();
+                        sc.nextLine();
+                        System.out.print("Enter gender: ");
+                        passenger.gender = sc.nextLine();
+
+                        System.out.print("Enter phone number: ");
+                        passenger.phoneNumber = sc.nextLine();
+
+                        passengers.add(passenger);
+                    }
+
+                    bookingDAO.bookTicket(trainId, passengers);
 
                     break;
+
+
 
                 case 7:
 
