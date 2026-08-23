@@ -3,6 +3,7 @@ package com.student.service;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class StudentService {
 
@@ -39,6 +40,32 @@ public class StudentService {
 
             e.printStackTrace();
             return false;
+        }
+    }
+
+    public boolean login(String email,String password){
+        String sql= "select *from student_details where email =? and Password =?";
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection(url,user,Password);
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1,email);
+            ps.setString(2,password);
+           ResultSet rs= ps.executeQuery();
+            if(rs.next()){
+                ps.close();
+                con.close();
+                return true;
+            }
+
+                ps.close();
+                con.close();
+                return false;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return  false;
         }
     }
 }

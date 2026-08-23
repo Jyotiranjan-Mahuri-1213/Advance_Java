@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/register")
 public class Register_Controller extends HttpServlet {
 
-  //  private static final long serialVersionUID = 1L;
+
 
     @Override
     protected void doPost(HttpServletRequest request,
